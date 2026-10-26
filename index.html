@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17291f">
+  <meta name="description" content="A working journal by a copywriter and creative strategist. Words, ideas, culture, and the spaces between them.">
+  <title>Field Notes — Copywriter & Creative Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #17291f;
+      --forest-2: #22392c;
+      --paper: #e9dfca;
+      --paper-2: #f2eadb;
+      --umber: #75472f;
+      --olive: #a89b7d;
+      --ochre: #c3a078;
+      --ink: #25251f;
+      --muted: #68675b;
+      --line: rgba(37,37,31,.22);
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --mono: "DM Mono", monospace;
+      --bg: var(--paper);
+      --fg: var(--ink);
+      --panel: var(--paper-2);
+      --accent: var(--umber);
+      --shadow: 0 18px 48px rgba(31, 29, 21, .12);
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans);
+      font-size: 16px; line-height: 1.6; transition: background .45s ease, color .45s ease;
+    }
+    body.after-hours {
+      --bg: #14251c; --fg: #e9dfca; --panel: #203328; --accent: #d0ad7c;
+      --line: rgba(233,223,202,.22); --muted: #b7b19f; --shadow: 0 18px 48px rgba(0,0,0,.28);
+      color-scheme: dark;
+    }
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    ::selection { background: var(--ochre); color: var(--forest); }
+    .grain {
+      pointer-events: none; position: fixed; inset: 0; z-index: 50; opacity: .09;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+    body.after-hours .grain { mix-blend-mode: screen; opacity: .045; }
+    .wrap { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow { font: 500 .72rem/1.4 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .small { font-size: .88rem; color: var(--muted); }
+    .serif { font-family: var(--serif); }
+    .italic { font-style: italic; }
+    .topbar {
+      position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(14px);
+    }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--fg); border-radius: 50%; font: 500 .78rem var(--mono); }
+    .brand-name { font: 600 .88rem var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 32px); }
+    .nav-links a { text-decoration: none; font-size: .83rem; position: relative; }
+    .nav-links a::after { content:""; position:absolute; left:0; right:100%; bottom:-5px; height:1px; background:var(--accent); transition:right .25s; }
+    .nav-links a:hover::after, .nav-links a:focus-visible::after { right:0; }
+    .theme-toggle { border: 1px solid var(--line); background: transparent; padding: 10px 13px; border-radius: 999px; display: flex; gap: 8px; align-items: center; cursor: pointer; font: 500 .7rem var(--mono); letter-spacing: .04em; }
+    .theme-toggle:hover { background: var(--panel); }
+    .mobile-menu { display:none; }
+    .hero { min-height: 710px; display:grid; grid-template-columns: 1.06fr .94fr; gap: clamp(32px, 6vw, 90px); align-items:center; padding-block: 76px 92px; }
+    .hero-copy { position:relative; z-index:1; }
+    .hero-kicker { display:flex; align-items:center; gap:12px; margin-bottom: 28px; }
+    .hero-kicker::before { content:""; width:34px; height:1px; background:var(--accent); }
+    h1 { font: 500 clamp(3.3rem, 7vw, 6.9rem)/.99 var(--serif); letter-spacing:-.055em; margin:0 0 28px; max-width: 720px; }
+    h1 em { color:var(--accent); font-weight:500; }
+    .hero-lede { max-width: 450px; font-size: 1.06rem; line-height:1.8; margin:0 0 30px; }
+    .hero-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .button { display:inline-flex; justify-content:center; align-items:center; gap:12px; padding:13px 18px; border:1px solid var(--fg); background:var(--fg); color:var(--bg); text-decoration:none; cursor:pointer; font:500 .75rem var(--mono); letter-spacing:.03em; transition: transform .2s, background .2s, color .2s; }
+    .button:hover { transform:translateY(-3px); background:var(--accent); border-color:var(--accent); color:var(--bg); }
+    .button.secondary { background:transparent; color:var(--fg); }
+    .button.secondary:hover { background:var(--panel); color:var(--fg); border-color:var(--accent); }
+    .arrow { display:inline-block; transition:transform .2s; }
+    .button:hover .arrow { transform:translate(3px,-2px); }
+    .hero-art { min-height:500px; position:relative; display:grid; place-items:center; }
+    .folio {
+      position:relative; width:min(390px, 85%); aspect-ratio:.76; background:var(--forest); color:var(--paper);
+      box-shadow: 24px 28px 0 var(--olive), var(--shadow); padding:30px; transform:rotate(3deg);
+      display:flex; flex-direction:column; justify-content:space-between; transition:transform .5s ease;
+    }
+    body.after-hours .folio { background:#2a3e30; box-shadow:24px 28px 0 #7b6a4e, var(--shadow); }
+    .folio:hover { transform:rotate(0deg) translateY(-5px); }
+    .folio-top { display:flex; justify-content:space-between; font: .65rem var(--mono); letter-spacing:.1em; text-transform:uppercase; }
+    .folio-title { font:500 clamp(2.9rem, 5vw, 4.4rem)/.9 var(--serif); letter-spacing:-.05em; }
+    .folio-title span { display:block; font-style:italic; padding-left:24px; }
+    .folio-illustration { position:absolute; width:68%; height:38%; left:16%; top:31%; opacity:.88; }
+    .folio-bottom { border-top:1px solid rgba(233,223,202,.45); padding-top:13px; display:flex; justify-content:space-between; gap:10px; font: .62rem var(--mono); text-transform:uppercase; letter-spacing:.08em; }
+    .orbit-note { position:absolute; right:-2%; top:13%; transform:rotate(8deg); background:var(--ochre); color:var(--forest); padding:14px 17px; font:italic 1rem var(--serif); box-shadow:var(--shadow); }
+    .stamp { position:absolute; bottom:8%; left:-2%; width:110px; height:110px; border:1px solid var(--accent); border-radius:50%; display:grid; place-items:center; text-align:center; color:var(--accent); font: .65rem/1.5 var(--mono); letter-spacing:.08em; transform:rotate(-12deg); }
+    .stamp::before { content:""; position:absolute; inset:7px; border:1px dashed var(--accent); border-radius:50%; }
+    .hero-foot { display:flex; justify-content:space-between; gap:20px; border-top:1px solid var(--line); padding-top:18px; font: .67rem var(--mono); letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+    .section { padding-block: 104px; border-top:1px solid var(--line); }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:32px; margin-bottom:42px; }
+    .section-number { font: .72rem var(--mono); color:var(--muted); }
+    h2 { font:500 clamp(2.5rem, 5vw, 4.8rem)/1.02 var(--serif); letter-spacing:-.05em; margin:10px 0 0; }
+    .section-intro { max-width:360px; color:var(--muted); font-size:.95rem; margin:0; }
+    .manifesto { background:var(--forest); color:var(--paper); padding:clamp(34px, 6vw, 76px); position:relative; overflow:hidden; }
+    body.after-hours .manifesto { background:#263b2e; }
+    .manifesto::after { content:"✳"; position:absolute; right:4%; bottom:-20%; font-size:clamp(9rem, 23vw, 22rem); line-height:1; color:var(--ochre); opacity:.16; transform:rotate(-14deg); }
+    .manifesto p { max-width:800px; margin:0; position:relative; z-index:1; font:500 clamp(1.8rem, 4vw, 3.65rem)/1.25 var(--serif); letter-spacing:-.025em; }
+    .manifesto p em { color:var(--ochre); }
+    .manifesto .eyebrow { display:block; margin-bottom:24px; color:var(--ochre); }
+    .work-tools { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px; }
+    .filter { padding:9px 13px; border:1px solid var(--line); border-radius:999px; background:transparent; cursor:pointer; font: .68rem var(--mono); }
+    .filter[aria-pressed="true"], .filter:hover { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+    .work-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+    .work-card { min-height:330px; border:1px solid var(--line); background:var(--panel); padding:23px; display:flex; flex-direction:column; text-align:left; cursor:pointer; position:relative; overflow:hidden; transition:transform .25s, border-color .25s; }
+    .work-card:hover { transform:translateY(-5px); border-color:var(--accent); }
+    .work-card[hidden] { display:none; }
+    .work-card .card-top { display:flex; justify-content:space-between; gap:10px; font:.65rem var(--mono); color:var(--muted); text-transform:uppercase; }
+    .work-art { flex:1; min-height:130px; display:grid; place-items:center; position:relative; }
+    .work-art .shape { width:115px; height:145px; border:1px solid var(--accent); display:grid; place-items:center; color:var(--accent); font:italic 2rem var(--serif); transform:rotate(-7deg); transition:transform .35s; }
+    .work-card:nth-child(2) .shape { border-radius:50% 50% 0 0; transform:rotate(5deg); }
+    .work-card:nth-child(3) .shape { border-style:dashed; border-radius:50%; transform:rotate(0deg); }
+    .work-card:hover .shape { transform:rotate(0deg) scale(1.04); }
+    .work-card h3 { font:500 1.6rem/1.15 var(--serif); margin:0 0 8px; }
+    .work-card p { font-size:.84rem; color:var(--muted); margin:0; }
+    .card-link { align-self:flex-end; margin-top:16px; font: .72rem var(--mono); }
+    .library { display:grid; grid-template-columns:.75fr 1.25fr; gap:clamp(34px, 7vw, 90px); align-items:start; }
+    .library-aside { position:sticky; top:110px; }
+    .library-aside p { max-width:330px; color:var(--muted); }
+    .library-shelf { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; align-items:end; }
+    .book {
+      border:0; min-height:260px; padding:17px 14px; cursor:pointer; position:relative; overflow:hidden; color:#e9dfca;
+      display:flex; flex-direction:column; justify-content:space-between; text-align:left; box-shadow:5px 7px 0 rgba(0,0,0,.13);
+      transition:transform .3s, box-shadow .3s; background:#75472f;
+    }
+    .book:nth-child(2) { min-height:300px; background:#263e30; }
+    .book:nth-child(3) { min-height:280px; background:#6d6b4b; }
+    .book:nth-child(4) { min-height:290px; background:#9a7754; }
+    .book:nth-child(5) { min-height:250px; background:#344b50; }
+    .book:nth-child(6) { min-height:310px; background:#5e3e3c; }
+    .book:hover { transform:translateY(-9px) rotate(-1deg); box-shadow:8px 13px 0 rgba(0,0,0,.16); }
+    .book::before { content:""; position:absolute; left:10px; top:0; bottom:0; width:1px; background:rgba(233,223,202,.4); }
+    .book .book-label { font:.58rem var(--mono); letter-spacing:.1em; text-transform:uppercase; opacity:.8; }
+    .book .book-title { font:500 clamp(1.25rem, 2vw, 1.8rem)/1.05 var(--serif); max-width:140px; }
+    .book .book-title em { display:block; }
+    .book .book-foot { display:flex; justify-content:space-between; gap:6px; font:.58rem var(--mono); opacity:.8; }
+    .book-hint { margin-top:18px; font:.7rem var(--mono); color:var(--muted); }
+    .notes-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .note-card { border-top:1px solid var(--line); padding-top:17px; cursor:pointer; }
+    .note-card:hover .note-title { color:var(--accent); }
+    .note-meta { display:flex; justify-content:space-between; gap:12px; font:.65rem var(--mono); color:var(--muted); text-transform:uppercase; }
+    .note-title { font:500 1.65rem/1.15 var(--serif); margin:20px 0 10px; transition:color .2s; }
+    .note-card p { color:var(--muted); font-size:.87rem; margin:0 0 20px; }
+    .note-open { font:.7rem var(--mono); }
+    .envelope-area { background:var(--panel); padding:clamp(28px, 5vw, 60px); display:grid; grid-template-columns:.9fr 1.1fr; gap:40px; align-items:center; border:1px solid var(--line); }
+    .envelope-area h2 { font-size:clamp(2.4rem, 4vw, 4rem); }
+    .envelopes { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    .envelope { min-height:165px; border:1px solid var(--line); background:var(--bg); padding:18px; text-align:left; cursor:pointer; position:relative; transition:transform .25s; }
+    .envelope:hover { transform:translateY(-4px); }
+    .envelope .seal { width:35px; height:35px; border-radius:50%; background:var(--umber); color:var(--paper); display:grid; place-items:center; font:1rem var(--serif); margin:14px 0; }
+    .envelope:nth-child(2) .seal { background:var(--olive); color:var(--ink); }
+    .envelope:nth-child(3) .seal { background:var(--ochre); color:var(--ink); }
+    .envelope:nth-child(4) .seal { background:var(--forest); color:var(--paper); }
+    .envelope strong { display:block; font:500 1.1rem var(--serif); }
+    .envelope span:last-child { display:block; font:.65rem var(--mono); color:var(--muted); margin-top:5px; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px, 8vw, 120px); align-items:start; }
+    .about-copy { font-size:1.05rem; line-height:1.9; }
+    .about-copy p:first-child { margin-top:0; }
+    .about-note { border-left:1px solid var(--accent); padding:8px 0 8px 24px; font:italic 1.45rem/1.45 var(--serif); }
+    .about-note small { display:block; font:.66rem var(--mono); font-style:normal; letter-spacing:.08em; text-transform:uppercase; margin-top:18px; color:var(--muted); }
+    .skills { display:flex; flex-wrap:wrap; gap:8px; margin-top:28px; }
+    .skills span { border:1px solid var(--line); border-radius:999px; padding:8px 12px; font:.7rem var(--mono); }
+    .contact { background:var(--forest); color:var(--paper); padding:clamp(34px, 6vw, 80px); position:relative; overflow:hidden; }
+    body.after-hours .contact { background:#203328; }
+    .contact .eyebrow { color:var(--ochre); }
+    .contact h2 { max-width:800px; font-size:clamp(3rem, 7vw, 6.5rem); margin-bottom:28px; }
+    .contact p { max-width:420px; color:rgba(233,223,202,.78); }
+    .contact .button { background:var(--paper); color:var(--forest); border-color:var(--paper); }
+    .contact .button:hover { background:var(--ochre); border-color:var(--ochre); }
+    .contact-doodle { position:absolute; right:6%; top:18%; width:200px; height:200px; border:1px solid rgba(195,160,120,.55); border-radius:50%; display:grid; place-items:center; color:var(--ochre); font:italic 1.4rem var(--serif); transform:rotate(12deg); }
+    .contact-doodle::before, .contact-doodle::after { content:""; position:absolute; inset:12px; border:1px dashed rgba(195,160,120,.5); border-radius:50%; }
+    .contact-doodle::after { inset:30px; border-style:solid; }
+    footer { padding:26px 0; display:flex; justify-content:space-between; align-items:center; gap:20px; font:.67rem var(--mono); text-transform:uppercase; color:var(--muted); }
+    .footer-links { display:flex; gap:18px; flex-wrap:wrap; }
+    .footer-links a { text-decoration:none; }
+    .footer-links a:hover { color:var(--accent); }
+    .modal-backdrop { position:fixed; inset:0; z-index:100; background:rgba(10,18,13,.72); display:none; place-items:center; padding:20px; backdrop-filter:blur(7px); }
+    .modal-backdrop.open { display:grid; }
+    .modal { background:var(--bg); color:var(--fg); border:1px solid var(--line); width:min(600px,100%); max-height:min(82vh,800px); overflow:auto; padding:clamp(25px, 5vw, 48px); box-shadow:var(--shadow); position:relative; animation:rise .25s ease both; }
+    @keyframes rise { from { opacity:0; transform:translateY(12px) scale(.99); } to { opacity:1; transform:none; } }
+    .modal-close { position:absolute; right:17px; top:14px; border:1px solid var(--line); background:transparent; border-radius:50%; width:35px; height:35px; cursor:pointer; font-size:1.1rem; }
+    .modal .eyebrow { color:var(--accent); margin-bottom:18px; }
+    .modal h3 { font:500 clamp(2rem, 5vw, 3.4rem)/1.05 var(--serif); letter-spacing:-.04em; margin:0 0 18px; }
+    .modal p { color:var(--muted); line-height:1.8; }
+    .modal .modal-action { margin-top:18px; }
+    .rabbit-hole { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+    .rabbit-hole button { border:1px solid var(--line); padding:9px 12px; background:transparent; cursor:pointer; font:.7rem var(--mono); }
+    .rabbit-hole button:hover, .rabbit-hole button.selected { background:var(--fg); color:var(--bg); }
+    .rabbit-result { min-height:70px; padding-top:18px; font:italic 1.25rem/1.5 var(--serif); color:var(--accent); }
+    .toast { position:fixed; bottom:22px; left:50%; transform:translate(-50%,20px); background:var(--fg); color:var(--bg); padding:12px 17px; font:.75rem var(--mono); z-index:120; opacity:0; pointer-events:none; transition:opacity .2s,transform .2s; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    .skip-link { position:absolute; top:-100px; left:12px; z-index:200; background:var(--fg); color:var(--bg); padding:10px; }
+    .skip-link:focus { top:12px; }
+    @media (max-width: 900px) {
+      .hero { min-height:auto; grid-template-columns:1fr 0.85fr; gap:25px; padding-block:65px; }
+      .hero-art { min-height:400px; }
+      .folio { width:85%; padding:22px; }
+      .stamp { width:88px; height:88px; font-size:.55rem; }
+      .work-grid { grid-template-columns:repeat(2,1fr); }
+      .library { grid-template-columns:1fr; }
+      .library-aside { position:static; }
+      .library-aside p { max-width:600px; }
+      .library-shelf { grid-template-columns:repeat(3,1fr); }
+      .contact-doodle { width:140px; height:140px; font-size:1rem; right:5%; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width:min(100% - 30px, 1180px); }
+      .nav { min-height:66px; flex-wrap:wrap; }
+      .nav-links { order:3; width:100%; overflow-x:auto; padding:0 0 13px; gap:21px; }
+      .nav-links a { white-space:nowrap; font-size:.78rem; }
+      .theme-toggle { margin-left:auto; padding:9px 10px; }
+      .hero { grid-template-columns:1fr; padding-block:58px 48px; }
+      h1 { font-size:clamp(3.2rem, 16vw, 5.2rem); }
+      .hero-art { min-height:420px; margin:5px 10px 18px; }
+      .folio { width:min(320px,78%); }
+      .orbit-note { right:0; top:8%; }
+      .stamp { left:0; bottom:3%; }
+      .hero-foot { flex-direction:column; gap:7px; }
+      .section { padding-block:72px; }
+      .section-head { align-items:start; flex-direction:column; gap:15px; margin-bottom:30px; }
+      .work-grid { grid-template-columns:1fr; }
+      .work-card { min-height:300px; }
+      .library-shelf { grid-template-columns:repeat(2,1fr); gap:12px; }
+      .book { min-height:245px; }
+      .book:nth-child(2), .book:nth-child(3), .book:nth-child(4), .book:nth-child(5), .book:nth-child(6) { min-height:265px; }
+      .notes-grid { grid-template-columns:1fr; gap:32px; }
+      .envelope-area { grid-template-columns:1fr; gap:28px; }
+      .envelopes { gap:10px; }
+      .envelope { min-height:150px; padding:13px; }
+      .about-grid { grid-template-columns:1fr; gap:30px; }
+      .contact-doodle { position:relative; top:auto; right:auto; margin:35px 0 0 auto; width:120px; height:120px; }
+      footer { align-items:flex-start; flex-direction:column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Field Notes home">
+        <span class="brand-mark">FN</span><span class="brand-name">Field Notes / Studio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#work">Selected work</a>
+        <a href="#library">Bookshelf</a>
+        <a href="#journal">Field notes</a>
+        <a href="#about">About</a>
+        <a href="#contact">Correspondence</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to After Hours theme">
+        <span id="lampIcon">☼</span><span id="themeLabel">After Hours</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" id="home">
+      <div class="hero-copy">
+        <div class="hero-kicker eyebrow">A working journal · South Africa</div>
+        <h1>I study the world.<br>Then I find <em>the words.</em></h1>
+        <p class="hero-lede">I’m a copywriter and creative strategist interested in the things people feel, the culture they make, and the ideas that move between them.</p>
+        <div class="hero-actions">
+          <a class="button" href="#work">Enter the catalogue <span class="arrow">↗</span></a>
+          <button class="button secondary" type="button" data-modal="rabbit">Choose a rabbit hole <span class="arrow">↗</span></button>
+        </div>
+        <div style="margin-top:34px" class="small">Currently collecting: sharp questions, strange connections, and sentences worth keeping.</div>
+      </div>
+      <div class="hero-art" aria-label="Illustrated cover of the Field Notes journal">
+        <div class="folio">
+          <div class="folio-top"><span>Vol. 01 — Ongoing</span><span>Est. in curiosity</span></div>
+          <div class="folio-title">Field<span>Notes.</span></div>
+          <svg class="folio-illustration" viewBox="0 0 260 190" fill="none" aria-hidden="true">
+            <path d="M130 174 C125 131 129 88 132 27" stroke="#C3A078" stroke-width="2"/>
+            <path d="M130 130 C91 125 64 98 58 65 C91 65 122 85 130 130Z" fill="#75472F" stroke="#E9DFCA" stroke-width="1.5"/>
+            <path d="M132 103 C146 61 177 40 211 44 C207 78 176 103 132 103Z" fill="#A89B7D" stroke="#E9DFCA" stroke-width="1.5"/>
+            <path d="M130 155 C100 151 84 135 76 114 C103 111 124 130 130 155Z" fill="#C3A078" stroke="#E9DFCA" stroke-width="1.5"/>
+            <circle cx="132" cy="26" r="6" fill="#C3A078"/>
+            <path d="M30 174 H230" stroke="#E9DFCA" stroke-opacity=".5"/>
+            <path d="M41 166 l-8 8 8 8 M219 166 l8 8 -8 8" stroke="#C3A078" stroke-width="1.5"/>
+          </svg>
+          <div class="folio-bottom"><span>Words / Ideas / Culture</span><span>Issue № 001</span></div>
+        </div>
+        <div class="orbit-note">keep looking ↗</div>
+        <div class="stamp">OBSERVE<br>CONNECT<br>MAKE MEANING</div>
+      </div>
+      <div class="hero-foot" style="grid-column:1/-1">
+        <span>Copywriting · Creative strategy · Cultural curiosity</span>
+        <span>Open notebook, unfinished thoughts ↓</span>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Creative philosophy">
+      <div class="manifesto">
+        <span class="eyebrow">A note on the work</span>
+        <p>Good creative work doesn’t begin with a clever line. It begins with <em>paying attention.</em> The line is what happens after.</p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="work">
+      <div class="section-head">
+        <div><div class="eyebrow">01 / The catalogue</div><h2>Selected work<span class="italic">.</span></h2></div>
+        <p class="section-intro">A living index of the thinking, writing and making. Filter the shelves; open a file to see its case note.</p>
+      </div>
+      <div class="work-tools" role="group" aria-label="Filter portfolio projects">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">Everything</button>
+        <button class="filter" type="button" data-filter="strategy" aria-pressed="false">Strategy</button>
+        <button class="filter" type="button" data-filter="copywriting" aria-pressed="false">Copywriting</button>
+        <button class="filter" type="button" data-filter="campaigns" aria-pressed="false">Campaigns</button>
+        <button class="filter" type="button" data-filter="experiments" aria-pressed="false">Experiments</button>
+      </div>
+      <div class="work-grid" id="workGrid">
+        <button class="work-card" type="button" data-category="strategy" data-project="vision">
+          <span class="card-top"><span>Strategy / 001</span><span>Case file ↗</span></span>
+          <span class="work-art"><span class="shape">01</span></span>
+          <h3>The bigger picture</h3><p>Finding the through-line between an idea, its audience and the world it wants to enter.</p>
+          <span class="card-link">Open case note ↗</span>
+        </button>
+        <button class="work-card" type="button" data-category="copywriting" data-project="words">
+          <span class="card-top"><span>Copywriting / 002</span><span>Case file ↗</span></span>
+          <span class="work-art"><span class="shape">Aa</span></span>
+          <h3>Words with a pulse</h3><p>Language with a point of view: clear enough to land, alive enough to stay.</p>
+          <span class="card-link">Open case note ↗</span>
+        </button>
+        <button class="work-card" type="button" data-category="campaigns" data-project="signal">
+          <span class="card-top"><span>Campaigns / 003</span><span>Case file ↗</span></span>
+          <span class="work-art"><span class="shape">✳</span></span>
+          <h3>Make some noise</h3><p>A campaign-shaped question: what should people notice, feel, remember or do?</p>
+          <span class="card-link">Open case note ↗</span>
+        </button>
+        <button class="work-card" type="button" data-category="experiments" data-project="margin">
+          <span class="card-top"><span>Experiments / 004</span><span>Case file ↗</span></span>
+          <span class="work-art"><span class="shape">∞</span></span>
+          <h3>Notes in the margins</h3><p>Small creative experiments, half-formed ideas and the useful mess before the answer.</p>
+          <span class="card-link">Open case note ↗</span>
+        </button>
+        <button class="work-card" type="button" data-category="strategy" data-project="culture">
+          <span class="card-top"><span>Strategy / 005</span><span>Case file ↗</span></span>
+          <span class="work-art"><span class="shape">↗</span></span>
+          <h3>Culture, closely read</h3><p>Listening for the context around a brief, not just the words written inside it.</p>
+          <span class="card-link">Open case note ↗</span>
+        </button>
+        <button class="work-card" type="button" data-category="copywriting" data-project="voice">
+          <span class="card-top"><span>Copywriting / 006</span><span>Case file ↗</span></span>
+          <span class="work-art"><span class="shape">“ ”</span></span>
+          <h3>A voice of its own</h3><p>Building a verbal world with rhythm, character and enough room to breathe.</p>
+          <span class="card-link">Open case note ↗</span>
+        </button>
+      </div>
+      <p class="small" style="margin-top:20px">Portfolio structure is ready. Project titles, case studies and live links can be replaced with final work later.</p>
+    </section>
+
+    <section class="section wrap" id="library">
+      <div class="library">
+        <div class="library-aside">
+          <div class="eyebrow">02 / Reading room</div>
+          <h2>A bookshelf for the <span class="italic">curious.</span></h2>
+          <p>Things I’ve read, things I’m thinking about, and ideas that keep turning up in my work. Open a book to visit the writing room.</p>
+          <button class="button secondary" type="button" data-modal="bookshelf" style="margin-top:10px">How this shelf works <span class="arrow">↗</span></button>
+          <div class="book-hint">↗ Tap a spine. Follow the footnote.</div>
+        </div>
+        <div>
+          <div class="library-shelf">
+            <button class="book" type="button" data-book="Margins & meanings"><span class="book-label">Reading log · 01</span><span class="book-title">Margins <em>& meanings</em></span><span class="book-foot"><span>ESSAYS</span><span>↗</span></span></button>
+            <button class="book" type="button" data-book="The culture file"><span class="book-label">Reading log · 02</span><span class="book-title">The culture <em>file</em></span><span class="book-foot"><span>CULTURE</span><span>↗</span></span></button>
+            <button class="book" type="button" data-book="A sentence, kept"><span class="book-label">Reading log · 03</span><span class="book-title">A sentence, <em>kept</em></span><span class="book-foot"><span>WORDS</span><span>↗</span></span></button>
+            <button class="book" type="button" data-book="Notes from elsewhere"><span class="book-label">Reading log · 04</span><span class="book-title">Notes from <em>elsewhere</em></span><span class="book-foot"><span>OBSERVATIONS</span><span>↗</span></span></button>
+            <button class="book" type="button" data-book="The idea garden"><span class="book-label">Reading log · 05</span><span class="book-title">The idea <em>garden</em></span><span class="book-foot"><span>PROCESS</span><span>↗</span></span></button>
+            <button class="book" type="button" data-book="After the last page"><span class="book-label">Reading log · 06</span><span class="book-title">After the <em>last page</em></span><span class="book-foot"><span>AFTERTHOUGHTS</span><span>↗</span></span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="journal">
+      <div class="section-head">
+        <div><div class="eyebrow">03 / Field notes</div><h2>Things I’m <span class="italic">noticing.</span></h2></div>
+        <p class="section-intro">A small, open notebook for observations, arguments, questions and the occasional rabbit hole.</p>
+      </div>
+      <div class="notes-grid">
+        <article class="note-card" tabindex="0" role="button" data-note="attention">
+          <div class="note-meta"><span>On noticing</span><span>Note № 01</span></div>
+          <h3 class="note-title">Attention is a creative practice.</h3>
+          <p>Before a trend report, before a brainstorm: look properly. What is everyone feeling but nobody has named yet?</p>
+          <span class="note-open">Read the note ↗</span>
+        </article>
+        <article class="note-card" tabindex="0" role="button" data-note="language">
+          <div class="note-meta"><span>On language</span><span>Note № 02</span></div>
+          <h3 class="note-title">A good line knows when to stop.</h3>
+          <p>There is a particular kind of confidence in leaving the reader a little room to meet you halfway.</p>
+          <span class="note-open">Read the note ↗</span>
+        </article>
+        <article class="note-card" tabindex="0" role="button" data-note="culture">
+          <div class="note-meta"><span>On culture</span><span>Note № 03</span></div>
+          <h3 class="note-title">The brief is never the whole story.</h3>
+          <p>Every brief arrives with a context: the conversations around it, the history behind it, the people living with it.</p>
+          <span class="note-open">Read the note ↗</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Interactive prompts">
+      <div class="envelope-area">
+        <div>
+          <div class="eyebrow">A little correspondence</div>
+          <h2>Open when <span class="italic">curious.</span></h2>
+          <p class="small">Four sealed notes. No grand reveal. Just a few small things about how I think and work.</p>
+        </div>
+        <div class="envelopes">
+          <button class="envelope" type="button" data-letter="process"><span class="eyebrow">Envelope 01</span><span class="seal">✳</span><strong>Open when stuck</strong><span>A note on process</span></button>
+          <button class="envelope" type="button" data-letter="inspiration"><span class="eyebrow">Envelope 02</span><span class="seal">✦</span><strong>Open when curious</strong><span>A note on inspiration</span></button>
+          <button class="envelope" type="button" data-letter="writing"><span class="eyebrow">Envelope 03</span><span class="seal">¶</span><strong>Open when writing</strong><span>A note on language</span></button>
+          <button class="envelope" type="button" data-letter="strategy"><span class="eyebrow">Envelope 04</span><span class="seal">↗</span><strong>Open when planning</strong><span>A note on strategy</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="about">
+      <div class="section-head">
+        <div><div class="eyebrow">04 / The author</div><h2>More than a job <span class="italic">title.</span></h2></div>
+        <p class="section-intro">A little about the person behind the pages. The longer version is always a conversation away.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I’m a copywriter and creative strategist who likes getting underneath the obvious answer. I’m drawn to language, culture, human behaviour and the small details that reveal a much bigger picture.</p>
+          <p>I care about work that knows what it wants to say, why it matters, and who it is saying it to. Sometimes that means finding the strategy. Sometimes it means finding the sentence. Usually, it means asking better questions before doing either.</p>
+          <p>This site is part portfolio, part working notebook: a place for finished work, unfinished thinking and the connections between them.</p>
+          <div class="skills"><span>Creative strategy</span><span>Copywriting</span><span>Brand voice</span><span>Campaign thinking</span><span>Cultural research</span><span>Storytelling</span></div>
+        </div>
+        <div>
+          <blockquote class="about-note">“The details are not the details. They make the design.”<small>— Charles Eames</small></blockquote>
+          <p class="small" style="margin-top:30px">Based in South Africa. Interested in the world. Always keeping a notebook close.</p>
+          <button class="button secondary" type="button" data-modal="rabbit" style="margin-top:10px">Ask the notebook a question <span class="arrow">↗</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" id="contact">
+      <div class="contact">
+        <div class="eyebrow">05 / Correspondence</div>
+        <h2>Have a good question?<br><em class="italic">I’m listening.</em></h2>
+        <p>For collaborations, opportunities, thoughtful questions or a brief that needs a sharper point of view: leave a note.</p>
+        <a class="button" href="mailto:hello@example.com" id="emailLink">Write a letter <span class="arrow">↗</span></a>
+        <div class="contact-doodle" aria-hidden="true">to be continued</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>© <span id="year"></span> Field Notes Studio · Made with attention.</span>
+    <div class="footer-links">
+      <a href="#home">Back to cover ↑</a>
+      <a href="#" data-placeholder="Substack">Substack ↗</a>
+      <a href="#" data-placeholder="Instagram">Instagram ↗</a>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modalBackdrop" role="presentation">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" id="modalClose" aria-label="Close dialog">×</button>
+      <div class="eyebrow" id="modalEyebrow">From the notebook</div>
+      <h3 id="modalTitle">A small note</h3>
+      <div id="modalBody"></div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Link to be added later.</div>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const themeLabel = document.getElementById('themeLabel');
+    const lampIcon = document.getElementById('lampIcon');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalEyebrow = document.getElementById('modalEyebrow');
+    const modalBody = document.getElementById('modalBody');
+    const modalClose = document.getElementById('modalClose');
+    const toast = document.getElementById('toast');
+    let lastFocused = null;
+    let toastTimer;
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    themeToggle.addEventListener('click', () => {
+      const active = body.classList.toggle('after-hours');
+      themeToggle.setAttribute('aria-pressed', String(active));
+      themeLabel.textContent = active ? 'Daylight' : 'After Hours';
+      lampIcon.textContent = active ? '☾' : '☼';
+      themeToggle.setAttribute('aria-label', active ? 'Switch to Daylight theme' : 'Switch to After Hours theme');
+    });
+
+    const projectNotes = {
+      vision: ['Strategy / Case file 001', 'The bigger picture', 'This case file is a placeholder for a strategy project. Use this space to show the challenge, the audience insight, the strategic idea, the creative direction and what changed because of the work.', 'Add final project details and a live case-study link when ready.'],
+      words: ['Copywriting / Case file 002', 'Words with a pulse', 'A place for writing that has a clear job to do and a distinct voice to do it in. Add the brief, the voice or messaging challenge, a few examples, and the thinking behind the choices.', 'Add selected copy and project link when ready.'],
+      signal: ['Campaigns / Case file 003', 'Make some noise', 'Use this case note to explain the campaign idea, how it travelled across channels, and what each execution was designed to make people feel, notice or do.', 'Add campaign assets and outcomes when ready.'],
+      margin: ['Experiments / Case file 004', 'Notes in the margins', 'An open space for speculative work, personal experiments, side quests and ideas that are not yet a client case study but still show how your mind works.', 'Add experiments or creative tests when ready.'],
+      culture: ['Strategy / Case file 005', 'Culture, closely read', 'Show how you move from observation to insight: what was happening in culture, why it mattered to the audience, and how that understanding shaped the work.', 'Add research notes and strategic output when ready.'],
+      voice: ['Copywriting / Case file 006', 'A voice of its own', 'Use this case note for verbal identity, tone of voice, naming, campaign language or any project where the words helped make the brand feel unmistakably itself.', 'Add voice principles and examples when ready.']
+    };
+    const bookNotes = {
+      'Margins & meanings': 'A shelf for essays, marginalia and the thoughts that appear after the final page. This book will link to the Substack reading room once the address is added.',
+      'The culture file': 'Observations about the things people make, share, repeat and turn into meaning. Follow the footnote to the longer version on Substack.',
+      'A sentence, kept': 'A small archive of lines worth saving: beautiful, useful, strange, precise or all four at once.',
+      'Notes from elsewhere': 'Ideas collected from conversations, places, music, art, history and all the places a brief does not explicitly tell you to look.',
+      'The idea garden': 'A growing collection of questions, unfinished concepts and creative seeds. Not every idea needs to be ready to be worth keeping.',
+      'After the last page': 'Afterthoughts, rereads and the little things a book leaves behind. This shelf will become a direct doorway to the Substack.'
+    };
+    const noteDetails = {
+      attention: ['Field note / 01', 'Attention is a creative practice.', 'Before a trend report, before a brainstorm: look properly. What are people doing when nobody asks them to explain it? What do they joke about? What do they keep returning to? Good strategy starts with attention, then turns observation into a useful point of view.'],
+      language: ['Field note / 02', 'A good line knows when to stop.', 'Not every thought needs three supporting thoughts. Sometimes the most confident sentence is the one that gives the reader room to finish it themselves. Clarity is not the enemy of personality; it is what lets personality land.'],
+      culture: ['Field note / 03', 'The brief is never the whole story.', 'Every brief arrives with a context: conversations around it, histories behind it, people living with it. The job is not to decorate the brief. It is to understand what is happening around it well enough to make the work matter.']
+    };
+    const letters = {
+      process: ['A note on process', 'When the work feels stuck, I try to change the question before I change the answer. Step back. Name the actual problem. Look for what is missing, not just what is wrong. A little distance can be productive.'],
+      inspiration: ['A note on inspiration', 'Inspiration is rarely a lightning bolt. More often, it is a habit of collecting: a line overheard on the taxi, a colour pairing on a street corner, an argument in an essay, a detail that refuses to leave you alone. Keep the receipts.'],
+      writing: ['A note on language', 'Write towards the thought, not towards sounding like a writer. Be specific. Read it aloud. Cut the sentence that is only there to prove you can write a sentence. Then keep one unexpected thing.'],
+      strategy: ['A note on strategy', 'A strategy should make choices easier. It should tell you what matters, what does not, who the work is for and why this is the right way in. If it cannot guide a creative decision, it may still be a collection of observations rather than a strategy.']
+    };
+    const rabbitResults = {
+      Words: 'Follow the sentence until it tells you what it is really trying to say.',
+      Ideas: 'Start with a question that feels slightly inconvenient. There is usually something useful hiding there.',
+      Culture: 'Look at what people are making meaning from, not only what brands are publishing.',
+      Curiosity: 'Take the long way around. The connection you need may be hiding in an unrelated room.'
+    };
+
+    function openModal(eyebrow, title, htmlContent) {
+      lastFocused = document.activeElement;
+      modalEyebrow.textContent = eyebrow;
+      modalTitle.textContent = title;
+      modalBody.innerHTML = htmlContent;
+      modalBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      modalClose.focus();
+    }
+    function closeModal() {
+      modalBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', e => { if (e.target === modalBackdrop) closeModal(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) closeModal();
+      if (modalBackdrop.classList.contains('open') && e.key === 'Tab') {
+        const focusables = [...modalBackdrop.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')];
+        if (!focusables.length) return;
+        const first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    document.querySelectorAll('.filter').forEach(btn => btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.filter').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      document.querySelectorAll('.work-card').forEach(card => {
+        card.hidden = filter !== 'all' && card.dataset.category !== filter;
+      });
+    }));
+
+    document.querySelectorAll('[data-project]').forEach(card => card.addEventListener('click', () => {
+      const data = projectNotes[card.dataset.project];
+      openModal(data[0], data[1], `<p>${data[2]}</p><p class="small">${data[3]}</p><a class="button modal-action" href="#contact" id="caseContact">Discuss a similar project <span class="arrow">↗</span></a>`);
+      document.getElementById('caseContact').addEventListener('click', closeModal);
+    }));
+
+    document.querySelectorAll('[data-book]').forEach(book => book.addEventListener('click', () => {
+      const title = book.dataset.book;
+      openModal('From the bookshelf', title, `<p>${bookNotes[title]}</p><p class="small">The final Substack URL will be added here. For now, the bookshelf is fully interactive and ready for its links.</p><button class="button modal-action" type="button" id="substackPlaceholder">Follow the footnote <span class="arrow">↗</span></button>`);
+      document.getElementById('substackPlaceholder').addEventListener('click', () => showToast('Substack link to be added later.'));
+    }));
+
+    document.querySelectorAll('[data-note]').forEach(note => {
+      const open = () => { const d = noteDetails[note.dataset.note]; openModal(d[0], d[1], `<p>${d[2]}</p><p class="small">This is a starter note. Longer writing can live here or open as a Substack article.</p><button class="button modal-action" type="button" id="noteLink">Read the longer version <span class="arrow">↗</span></button>`); document.getElementById('noteLink').addEventListener('click', () => showToast('Article link to be added later.')); };
+      note.addEventListener('click', open);
+      note.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    });
+
+    document.querySelectorAll('[data-letter]').forEach(btn => btn.addEventListener('click', () => {
+      const d = letters[btn.dataset.letter];
+      openModal('Opened correspondence', d[0], `<p>${d[1]}</p><p class="small">A small note from the notebook. More can be added any time.</p>`);
+    }));
+
+    document.querySelectorAll('[data-modal]').forEach(btn => btn.addEventListener('click', () => {
+      if (btn.dataset.modal === 'rabbit') {
+        openModal('Choose your own rabbit hole', 'Where shall we wander?', `<p>Pick a door. There is no wrong way to get curious.</p><div class="rabbit-hole">${Object.keys(rabbitResults).map(x => `<button type="button" data-rabbit="${x}">${x}</button>`).join('')}</div><div class="rabbit-result" id="rabbitResult">Choose a direction and the notebook will offer you a starting point.</div>`);
+        modalBody.querySelectorAll('[data-rabbit]').forEach(b => b.addEventListener('click', () => {
+          modalBody.querySelectorAll('[data-rabbit]').forEach(x => x.classList.toggle('selected', x === b));
+          document.getElementById('rabbitResult').textContent = rabbitResults[b.dataset.rabbit];
+        }));
+      } else {
+        openModal('Reading room guide', 'A shelf with a footnote.', '<p>Each book is a doorway to a different corner of the notebook: essays, culture, language, observations and the ideas still taking shape.</p><p>When the Substack address is added, each book can open its matching publication or article directly. The interaction and layout are already in place.</p>');
+      }
+    }));
+
+    document.querySelectorAll('[data-placeholder]').forEach(link => link.addEventListener('click', e => {
+      e.preventDefault();
+      showToast(`${link.dataset.placeholder} link to be added later.`);
+    }));
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+  </script>
+</body>
+</html>
