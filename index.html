@@ -71,6 +71,8 @@
     .nav-links a:hover::after, .nav-links a:focus-visible::after { right:0; }
     .theme-toggle { border: 1px solid var(--line); background: transparent; padding: 10px 13px; border-radius: 999px; display: flex; gap: 8px; align-items: center; cursor: pointer; font: 500 .7rem var(--mono); letter-spacing: .04em; }
     .theme-toggle:hover { background: var(--panel); }
+    .theme-icon { display:inline-flex; width:17px; height:17px; }
+    .theme-icon svg { width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
     .mobile-menu { display:none; }
     .hero { min-height: 710px; display:grid; grid-template-columns: 1.06fr .94fr; gap: clamp(32px, 6vw, 90px); align-items:center; padding-block: 76px 92px; }
     .hero-copy { position:relative; z-index:1; }
@@ -110,7 +112,7 @@
     .section-intro { max-width:360px; color:var(--muted); font-size:.95rem; margin:0; }
     .manifesto { background:var(--forest); color:var(--paper); padding:clamp(34px, 6vw, 76px); position:relative; overflow:hidden; }
     body.after-hours .manifesto { background:#263b2e; }
-    .manifesto::after { content:"✳"; position:absolute; right:4%; bottom:-20%; font-size:clamp(9rem, 23vw, 22rem); line-height:1; color:var(--ochre); opacity:.16; transform:rotate(-14deg); }
+    .manifesto::after { content:""; position:absolute; right:2%; bottom:-15%; width:clamp(180px, 28vw, 340px); height:clamp(180px, 28vw, 340px); opacity:.17; transform:rotate(-14deg); background-repeat:no-repeat; background-size:contain; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240' fill='none' stroke='%23c3a078' stroke-width='1.4'%3E%3Cpath d='M120 18 C135 63 177 65 222 120 C177 135 175 177 120 222 C105 177 63 175 18 120 C63 105 65 63 120 18Z'/%3E%3Cpath d='M120 35 C126 76 164 114 205 120 C164 126 126 164 120 205 C114 164 76 126 35 120 C76 114 114 76 120 35Z'/%3E%3Ccircle cx='120' cy='120' r='18'/%3E%3C/svg%3E"); }
     .manifesto p { max-width:800px; margin:0; position:relative; z-index:1; font:500 clamp(1.8rem, 4vw, 3.65rem)/1.25 var(--serif); letter-spacing:-.025em; }
     .manifesto p em { color:var(--ochre); }
     .manifesto .eyebrow { display:block; margin-bottom:24px; color:var(--ochre); }
@@ -163,7 +165,8 @@
     .envelopes { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
     .envelope { min-height:165px; border:1px solid var(--line); background:var(--bg); padding:18px; text-align:left; cursor:pointer; position:relative; transition:transform .25s; }
     .envelope:hover { transform:translateY(-4px); }
-    .envelope .seal { width:35px; height:35px; border-radius:50%; background:var(--umber); color:var(--paper); display:grid; place-items:center; font:1rem var(--serif); margin:14px 0; }
+    .envelope .seal { width:35px; height:35px; border-radius:50%; background:var(--umber); color:var(--paper); display:grid; place-items:center; margin:14px 0; }
+    .envelope .seal svg { width:23px; height:23px; fill:none; stroke:currentColor; stroke-width:1.35; stroke-linecap:round; stroke-linejoin:round; }
     .envelope:nth-child(2) .seal { background:var(--olive); color:var(--ink); }
     .envelope:nth-child(3) .seal { background:var(--ochre); color:var(--ink); }
     .envelope:nth-child(4) .seal { background:var(--forest); color:var(--paper); }
@@ -250,7 +253,9 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
     }
-  </style>
+  
+    .inline-arrow { display:inline-block; width:.78em; height:.78em; margin-left:.12em; vertical-align:-.04em; fill:none; stroke:currentColor; stroke-width:1.35; stroke-linecap:round; stroke-linejoin:round; }
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -268,7 +273,7 @@
         <a href="#contact">Correspondence</a>
       </div>
       <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to After Hours theme">
-        <span id="lampIcon">☼</span><span id="themeLabel">After Hours</span>
+        <span id="lampIcon" class="theme-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg></span><span id="themeLabel">After Hours</span>
       </button>
     </nav>
   </header>
@@ -280,8 +285,8 @@
         <h1>I study the world.<br>Then I find <em>the words.</em></h1>
         <p class="hero-lede">I’m a copywriter and creative strategist interested in the things people feel, the culture they make, and the ideas that move between them.</p>
         <div class="hero-actions">
-          <a class="button" href="#work">Enter the catalogue <span class="arrow">↗</span></a>
-          <button class="button secondary" type="button" data-modal="rabbit">Choose a rabbit hole <span class="arrow">↗</span></button>
+          <a class="button" href="#work">Enter the catalogue <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></a>
+          <button class="button secondary" type="button" data-modal="rabbit">Choose a rabbit hole <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></button>
         </div>
         <div style="margin-top:34px" class="small">Currently collecting: sharp questions, strange connections, and sentences worth keeping.</div>
       </div>
@@ -300,7 +305,7 @@
           </svg>
           <div class="folio-bottom"><span>Words / Ideas / Culture</span><span>Issue № 001</span></div>
         </div>
-        <div class="orbit-note">keep looking ↗</div>
+        <div class="orbit-note">keep looking <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
         <div class="stamp">OBSERVE<br>CONNECT<br>MAKE MEANING</div>
       </div>
       <div class="hero-foot" style="grid-column:1/-1">
@@ -330,40 +335,40 @@
       </div>
       <div class="work-grid" id="workGrid">
         <button class="work-card" type="button" data-category="strategy" data-project="vision">
-          <span class="card-top"><span>Strategy / 001</span><span>Case file ↗</span></span>
+          <span class="card-top"><span>Strategy / 001</span><span>Case file <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span>
           <span class="work-art"><span class="shape">01</span></span>
           <h3>The bigger picture</h3><p>Finding the through-line between an idea, its audience and the world it wants to enter.</p>
-          <span class="card-link">Open case note ↗</span>
+          <span class="card-link">Open case note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </button>
         <button class="work-card" type="button" data-category="copywriting" data-project="words">
-          <span class="card-top"><span>Copywriting / 002</span><span>Case file ↗</span></span>
+          <span class="card-top"><span>Copywriting / 002</span><span>Case file <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span>
           <span class="work-art"><span class="shape">Aa</span></span>
           <h3>Words with a pulse</h3><p>Language with a point of view: clear enough to land, alive enough to stay.</p>
-          <span class="card-link">Open case note ↗</span>
+          <span class="card-link">Open case note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </button>
         <button class="work-card" type="button" data-category="campaigns" data-project="signal">
-          <span class="card-top"><span>Campaigns / 003</span><span>Case file ↗</span></span>
-          <span class="work-art"><span class="shape">✳</span></span>
+          <span class="card-top"><span>Campaigns / 003</span><span>Case file <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span>
+          <span class="work-art"><span class="shape shape-rosette" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 8C57 31 69 43 92 50C69 57 57 69 50 92C43 69 31 57 8 50C31 43 43 31 50 8Z"/><circle cx="50" cy="50" r="9"/></svg></span></span>
           <h3>Make some noise</h3><p>A campaign-shaped question: what should people notice, feel, remember or do?</p>
-          <span class="card-link">Open case note ↗</span>
+          <span class="card-link">Open case note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </button>
         <button class="work-card" type="button" data-category="experiments" data-project="margin">
-          <span class="card-top"><span>Experiments / 004</span><span>Case file ↗</span></span>
+          <span class="card-top"><span>Experiments / 004</span><span>Case file <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span>
           <span class="work-art"><span class="shape">∞</span></span>
           <h3>Notes in the margins</h3><p>Small creative experiments, half-formed ideas and the useful mess before the answer.</p>
-          <span class="card-link">Open case note ↗</span>
+          <span class="card-link">Open case note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </button>
         <button class="work-card" type="button" data-category="strategy" data-project="culture">
-          <span class="card-top"><span>Strategy / 005</span><span>Case file ↗</span></span>
-          <span class="work-art"><span class="shape">↗</span></span>
+          <span class="card-top"><span>Strategy / 005</span><span>Case file <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span>
+          <span class="work-art"><span class="shape"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span>
           <h3>Culture, closely read</h3><p>Listening for the context around a brief, not just the words written inside it.</p>
-          <span class="card-link">Open case note ↗</span>
+          <span class="card-link">Open case note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </button>
         <button class="work-card" type="button" data-category="copywriting" data-project="voice">
-          <span class="card-top"><span>Copywriting / 006</span><span>Case file ↗</span></span>
+          <span class="card-top"><span>Copywriting / 006</span><span>Case file <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span>
           <span class="work-art"><span class="shape">“ ”</span></span>
           <h3>A voice of its own</h3><p>Building a verbal world with rhythm, character and enough room to breathe.</p>
-          <span class="card-link">Open case note ↗</span>
+          <span class="card-link">Open case note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </button>
       </div>
       <p class="small" style="margin-top:20px">Portfolio structure is ready. Project titles, case studies and live links can be replaced with final work later.</p>
@@ -375,17 +380,17 @@
           <div class="eyebrow">02 / Reading room</div>
           <h2>A bookshelf for the <span class="italic">curious.</span></h2>
           <p>Things I’ve read, things I’m thinking about, and ideas that keep turning up in my work. Open a book to visit the writing room.</p>
-          <button class="button secondary" type="button" data-modal="bookshelf" style="margin-top:10px">How this shelf works <span class="arrow">↗</span></button>
-          <div class="book-hint">↗ Tap a spine. Follow the footnote.</div>
+          <button class="button secondary" type="button" data-modal="bookshelf" style="margin-top:10px">How this shelf works <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></button>
+          <div class="book-hint"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg> Tap a spine. Follow the footnote.</div>
         </div>
         <div>
           <div class="library-shelf">
-            <button class="book" type="button" data-book="Margins & meanings"><span class="book-label">Reading log · 01</span><span class="book-title">Margins <em>& meanings</em></span><span class="book-foot"><span>ESSAYS</span><span>↗</span></span></button>
-            <button class="book" type="button" data-book="The culture file"><span class="book-label">Reading log · 02</span><span class="book-title">The culture <em>file</em></span><span class="book-foot"><span>CULTURE</span><span>↗</span></span></button>
-            <button class="book" type="button" data-book="A sentence, kept"><span class="book-label">Reading log · 03</span><span class="book-title">A sentence, <em>kept</em></span><span class="book-foot"><span>WORDS</span><span>↗</span></span></button>
-            <button class="book" type="button" data-book="Notes from elsewhere"><span class="book-label">Reading log · 04</span><span class="book-title">Notes from <em>elsewhere</em></span><span class="book-foot"><span>OBSERVATIONS</span><span>↗</span></span></button>
-            <button class="book" type="button" data-book="The idea garden"><span class="book-label">Reading log · 05</span><span class="book-title">The idea <em>garden</em></span><span class="book-foot"><span>PROCESS</span><span>↗</span></span></button>
-            <button class="book" type="button" data-book="After the last page"><span class="book-label">Reading log · 06</span><span class="book-title">After the <em>last page</em></span><span class="book-foot"><span>AFTERTHOUGHTS</span><span>↗</span></span></button>
+            <button class="book" type="button" data-book="Margins & meanings"><span class="book-label">Reading log · 01</span><span class="book-title">Margins <em>& meanings</em></span><span class="book-foot"><span>ESSAYS</span><span><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span></button>
+            <button class="book" type="button" data-book="The culture file"><span class="book-label">Reading log · 02</span><span class="book-title">The culture <em>file</em></span><span class="book-foot"><span>CULTURE</span><span><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span></button>
+            <button class="book" type="button" data-book="A sentence, kept"><span class="book-label">Reading log · 03</span><span class="book-title">A sentence, <em>kept</em></span><span class="book-foot"><span>WORDS</span><span><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span></button>
+            <button class="book" type="button" data-book="Notes from elsewhere"><span class="book-label">Reading log · 04</span><span class="book-title">Notes from <em>elsewhere</em></span><span class="book-foot"><span>OBSERVATIONS</span><span><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span></button>
+            <button class="book" type="button" data-book="The idea garden"><span class="book-label">Reading log · 05</span><span class="book-title">The idea <em>garden</em></span><span class="book-foot"><span>PROCESS</span><span><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span></button>
+            <button class="book" type="button" data-book="After the last page"><span class="book-label">Reading log · 06</span><span class="book-title">After the <em>last page</em></span><span class="book-foot"><span>AFTERTHOUGHTS</span><span><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></span></button>
           </div>
         </div>
       </div>
@@ -401,19 +406,19 @@
           <div class="note-meta"><span>On noticing</span><span>Note № 01</span></div>
           <h3 class="note-title">Attention is a creative practice.</h3>
           <p>Before a trend report, before a brainstorm: look properly. What is everyone feeling but nobody has named yet?</p>
-          <span class="note-open">Read the note ↗</span>
+          <span class="note-open">Read the note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </article>
         <article class="note-card" tabindex="0" role="button" data-note="language">
           <div class="note-meta"><span>On language</span><span>Note № 02</span></div>
           <h3 class="note-title">A good line knows when to stop.</h3>
           <p>There is a particular kind of confidence in leaving the reader a little room to meet you halfway.</p>
-          <span class="note-open">Read the note ↗</span>
+          <span class="note-open">Read the note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </article>
         <article class="note-card" tabindex="0" role="button" data-note="culture">
           <div class="note-meta"><span>On culture</span><span>Note № 03</span></div>
           <h3 class="note-title">The brief is never the whole story.</h3>
           <p>Every brief arrives with a context: the conversations around it, the history behind it, the people living with it.</p>
-          <span class="note-open">Read the note ↗</span>
+          <span class="note-open">Read the note <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span>
         </article>
       </div>
     </section>
@@ -426,10 +431,10 @@
           <p class="small">Four sealed notes. No grand reveal. Just a few small things about how I think and work.</p>
         </div>
         <div class="envelopes">
-          <button class="envelope" type="button" data-letter="process"><span class="eyebrow">Envelope 01</span><span class="seal">✳</span><strong>Open when stuck</strong><span>A note on process</span></button>
-          <button class="envelope" type="button" data-letter="inspiration"><span class="eyebrow">Envelope 02</span><span class="seal">✦</span><strong>Open when curious</strong><span>A note on inspiration</span></button>
-          <button class="envelope" type="button" data-letter="writing"><span class="eyebrow">Envelope 03</span><span class="seal">¶</span><strong>Open when writing</strong><span>A note on language</span></button>
-          <button class="envelope" type="button" data-letter="strategy"><span class="eyebrow">Envelope 04</span><span class="seal">↗</span><strong>Open when planning</strong><span>A note on strategy</span></button>
+          <button class="envelope" type="button" data-letter="process"><span class="eyebrow">Envelope 01</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 4C22 13 27 18 36 20C27 22 22 27 20 36C18 27 13 22 4 20C13 18 18 13 20 4Z"/><circle cx="20" cy="20" r="4"/></svg></span><strong>Open when stuck</strong><span>A note on process</span></button>
+          <button class="envelope" type="button" data-letter="inspiration"><span class="eyebrow">Envelope 02</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 4C24 13 27 16 36 20C27 24 24 27 20 36C16 27 13 24 4 20C13 16 16 13 20 4Z"/><path d="M7 7L33 33M33 7L7 33" opacity=".55"/></svg></span><strong>Open when curious</strong><span>A note on inspiration</span></button>
+          <button class="envelope" type="button" data-letter="writing"><span class="eyebrow">Envelope 03</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M27 6C16 4 11 11 14 17C16 21 24 19 27 14C30 9 25 5 20 8C13 12 18 23 26 23M15 19L12 34M25 22L22 34"/></svg></span><strong>Open when writing</strong><span>A note on language</span></button>
+          <button class="envelope" type="button" data-letter="strategy"><span class="eyebrow">Envelope 04</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13"/><path d="M13 27L27 13M17 13H27V23"/></svg></span><strong>Open when planning</strong><span>A note on strategy</span></button>
         </div>
       </div>
     </section>
@@ -449,7 +454,7 @@
         <div>
           <blockquote class="about-note">“The details are not the details. They make the design.”<small>— Charles Eames</small></blockquote>
           <p class="small" style="margin-top:30px">Based in South Africa. Interested in the world. Always keeping a notebook close.</p>
-          <button class="button secondary" type="button" data-modal="rabbit" style="margin-top:10px">Ask the notebook a question <span class="arrow">↗</span></button>
+          <button class="button secondary" type="button" data-modal="rabbit" style="margin-top:10px">Ask the notebook a question <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></button>
         </div>
       </div>
     </section>
@@ -459,7 +464,7 @@
         <div class="eyebrow">05 / Correspondence</div>
         <h2>Have a good question?<br><em class="italic">I’m listening.</em></h2>
         <p>For collaborations, opportunities, thoughtful questions or a brief that needs a sharper point of view: leave a note.</p>
-        <a class="button" href="mailto:hello@example.com" id="emailLink">Write a letter <span class="arrow">↗</span></a>
+        <a class="button" href="mailto:hello@example.com" id="emailLink">Write a letter <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></a>
         <div class="contact-doodle" aria-hidden="true">to be continued</div>
       </div>
     </section>
@@ -469,8 +474,8 @@
     <span>© <span id="year"></span> Field Notes Studio · Made with attention.</span>
     <div class="footer-links">
       <a href="#home">Back to cover ↑</a>
-      <a href="#" data-placeholder="Substack">Substack ↗</a>
-      <a href="#" data-placeholder="Instagram">Instagram ↗</a>
+      <a href="#" data-placeholder="Substack">Substack <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
+      <a href="#" data-placeholder="Instagram">Instagram <svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
     </div>
   </footer>
 
@@ -504,7 +509,7 @@
       const active = body.classList.toggle('after-hours');
       themeToggle.setAttribute('aria-pressed', String(active));
       themeLabel.textContent = active ? 'Daylight' : 'After Hours';
-      lampIcon.textContent = active ? '☾' : '☼';
+      lampIcon.innerHTML = active ? '<svg viewBox="0 0 24 24"><path d="M20.5 15.2A8.7 8.7 0 0 1 8.8 3.5 8.8 8.8 0 1 0 20.5 15.2Z"/></svg>' : '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>'; 
       themeToggle.setAttribute('aria-label', active ? 'Switch to Daylight theme' : 'Switch to After Hours theme');
     });
 
@@ -579,18 +584,18 @@
 
     document.querySelectorAll('[data-project]').forEach(card => card.addEventListener('click', () => {
       const data = projectNotes[card.dataset.project];
-      openModal(data[0], data[1], `<p>${data[2]}</p><p class="small">${data[3]}</p><a class="button modal-action" href="#contact" id="caseContact">Discuss a similar project <span class="arrow">↗</span></a>`);
+      openModal(data[0], data[1], `<p>${data[2]}</p><p class="small">${data[3]}</p><a class="button modal-action" href="#contact" id="caseContact">Discuss a similar project <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></a>`);
       document.getElementById('caseContact').addEventListener('click', closeModal);
     }));
 
     document.querySelectorAll('[data-book]').forEach(book => book.addEventListener('click', () => {
       const title = book.dataset.book;
-      openModal('From the bookshelf', title, `<p>${bookNotes[title]}</p><p class="small">The final Substack URL will be added here. For now, the bookshelf is fully interactive and ready for its links.</p><button class="button modal-action" type="button" id="substackPlaceholder">Follow the footnote <span class="arrow">↗</span></button>`);
+      openModal('From the bookshelf', title, `<p>${bookNotes[title]}</p><p class="small">The final Substack URL will be added here. For now, the bookshelf is fully interactive and ready for its links.</p><button class="button modal-action" type="button" id="substackPlaceholder">Follow the footnote <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></button>`);
       document.getElementById('substackPlaceholder').addEventListener('click', () => showToast('Substack link to be added later.'));
     }));
 
     document.querySelectorAll('[data-note]').forEach(note => {
-      const open = () => { const d = noteDetails[note.dataset.note]; openModal(d[0], d[1], `<p>${d[2]}</p><p class="small">This is a starter note. Longer writing can live here or open as a Substack article.</p><button class="button modal-action" type="button" id="noteLink">Read the longer version <span class="arrow">↗</span></button>`); document.getElementById('noteLink').addEventListener('click', () => showToast('Article link to be added later.')); };
+      const open = () => { const d = noteDetails[note.dataset.note]; openModal(d[0], d[1], `<p>${d[2]}</p><p class="small">This is a starter note. Longer writing can live here or open as a Substack article.</p><button class="button modal-action" type="button" id="noteLink">Read the longer version <span class="arrow"><svg class="inline-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5 4h7v7"/></svg></span></button>`); document.getElementById('noteLink').addEventListener('click', () => showToast('Article link to be added later.')); };
       note.addEventListener('click', open);
       note.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
     });
